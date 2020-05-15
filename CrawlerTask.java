@@ -44,6 +44,8 @@ public class CrawlerTask implements Runnable {
             while (input.contains("a href=\"" + prefix)) {
                 input = input.substring(input.indexOf("a href=\"" + prefix) + 8);
                 String link = input.substring(0, input.indexOf('\"'));
+                if(link.contains(" "))
+                    link = link.replace(" ", "%20");
                 if (Pool.getNotProcessed().contains(new URLDepthPair(link, AnyDepth)) ||
                         Pool.getProcessed().contains(new URLDepthPair(link, AnyDepth))) continue;
                 Pool.addNotProcessed(new URLDepthPair(link, pair.getDepth() - 1));
